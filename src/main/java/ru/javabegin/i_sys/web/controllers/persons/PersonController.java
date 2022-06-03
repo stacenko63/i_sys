@@ -1,19 +1,25 @@
-package ru.javabegin.i_sys.web.users.controllers.persons;
+package ru.javabegin.i_sys.web.controllers.persons;
 
 
 import org.springframework.web.bind.annotation.*;
+import ru.javabegin.i_sys.web.controllers.persons.dto.PersonDtoGet;
+import ru.javabegin.i_sys.web.controllers.persons.dto.PersonDtoPostOrPut;
 
 @RestController
 @RequestMapping("/person")
 public class PersonController {
 
+    /*private final IPersonService _personService;
 
+    public PersonController(IPersonService personService) {
+        _personService = personService;
+    }*/
 
     //получение данных о гражданах постранично
-    @GetMapping
+/*    @GetMapping
     public int GetPersonsByPage(int id, int page) {
         return 5;/////////////////
-    }
+    }*/
 
     //получение данных о конкретном гражданине по id
     @GetMapping({"id"})
@@ -40,10 +46,10 @@ public class PersonController {
     }
 
     //проверка валидности связки ФИО + паспорт
-    /*@GetMapping
+    @GetMapping
     public boolean CheckValidPassportByName(String name, String surname, String patronymic) {
         return true;
-    }*/
+    }
 
 
 

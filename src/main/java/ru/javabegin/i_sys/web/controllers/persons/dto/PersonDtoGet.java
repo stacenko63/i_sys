@@ -1,4 +1,4 @@
-package ru.javabegin.i_sys.web.users.controllers.persons;
+package ru.javabegin.i_sys.web.controllers.persons.dto;
 
 public class PersonDtoGet {
 

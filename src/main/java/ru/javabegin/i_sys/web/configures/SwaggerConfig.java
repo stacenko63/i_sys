@@ -1,4 +1,4 @@
-package ru.javabegin.i_sys.web.users.configures;
+package ru.javabegin.i_sys.web.configures;
 
 
 
