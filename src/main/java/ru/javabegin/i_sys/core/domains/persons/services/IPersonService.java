@@ -17,5 +17,5 @@ public interface IPersonService {
 
     void DeletePerson(int id);
 
-    boolean CheckValidPassportByName(String name, String surname, String patronymic);
+    boolean CheckValidPassportByName(String name, String surname, String patronymic, String passportValue);
 }

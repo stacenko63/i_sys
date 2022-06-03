@@ -6,7 +6,7 @@ import ru.javabegin.i_sys.web.controllers.persons.dto.PersonDtoPostOrPut;
 
 @Repository
 public interface IPersonRepository {
-    //int GetPersonsByPage(int id, int page);
+    int GetPersonsByPage(int id, int page);
 
     PersonDBModel GetUserById(int id);
 
@@ -16,5 +16,5 @@ public interface IPersonRepository {
 
     void DeletePerson(int id);
 
-    boolean CheckValidPassportByName(String name, String surname, String patronymic);
+    boolean CheckValidPassportByName(String name, String surname, String patronymic, String passportValue);
 }
