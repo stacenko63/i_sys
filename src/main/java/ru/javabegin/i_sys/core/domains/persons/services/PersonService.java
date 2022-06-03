@@ -28,7 +28,7 @@ public class PersonService implements IPersonService {
 
 
     public Person GetUserById(int id) {
-        return null;///////////
+        return _personRepository.GetUserById(id);
     }
 
 
@@ -48,7 +48,11 @@ public class PersonService implements IPersonService {
         _personRepository.DeletePerson(id);
     }
 
-    public boolean CheckValidPassportByName(String name, String surname, String patronymic, String passportValue) {
+    public boolean CheckValidPassportByName(String name, String surname, String patronymic, String passportValue) throws Exception {
+        if (name == null || name.isEmpty()) throw new Exception("Имя указано некорректно!");
+        if (surname == null || surname.isEmpty()) throw new Exception("Фамилия указана некорректно!");
+        if (patronymic == null || patronymic.isEmpty()) throw new Exception("Отчество указано некорректно!");
+        if (passportValue == null || passportValue.isEmpty()) throw new Exception("Паспортные данные указаны некорректно!"); //добавить регулярные выражения
         return _personRepository.CheckValidPassportByName(name, surname, patronymic, passportValue);
     }
 

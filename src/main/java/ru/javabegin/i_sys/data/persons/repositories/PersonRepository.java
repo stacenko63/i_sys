@@ -3,7 +3,6 @@ package ru.javabegin.i_sys.data.persons.repositories;
 import org.springframework.stereotype.Repository;
 import ru.javabegin.i_sys.core.domains.persons.Person;
 import ru.javabegin.i_sys.core.domains.persons.repositories.IPersonRepository;
-import ru.javabegin.i_sys.data.persons.PersonDBModel;
 import ru.javabegin.i_sys.web.controllers.persons.dto.PersonDtoPostOrPut;
 
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ public class PersonRepository implements IPersonRepository {
     }
 
 
-    public PersonDBModel GetUserById(int id) {
+    public Person GetUserById(int id) {
         return null;////////
     }
 

@@ -2,7 +2,6 @@ package ru.javabegin.i_sys.core.domains.persons.repositories;
 
 import org.springframework.stereotype.Repository;
 import ru.javabegin.i_sys.core.domains.persons.Person;
-import ru.javabegin.i_sys.data.persons.PersonDBModel;
 import ru.javabegin.i_sys.web.controllers.persons.dto.PersonDtoPostOrPut;
 
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 public interface IPersonRepository {
     ArrayList<Person> GetPersonsByPage(int page, int size);
 
-    PersonDBModel GetUserById(int id);
+    Person GetUserById(int id);
 
     void CreatePerson(PersonDtoPostOrPut person);
 
