@@ -20,14 +20,24 @@ public class PersonController {
 
 
     @GetMapping("/GetAllPersons")
-    public ArrayList<PersonDtoGet> GetPersonsByPage(int id, int page) {
-        return null;/////////////////
+    public ArrayList<PersonDtoGet> GetPersonsByPage(int page, int size) throws Exception {
+        var entity = _personService.GetPersonsByPage(page, size);
+        var result = new ArrayList<PersonDtoGet>();
+        for (var el: entity) {
+            result.add(new PersonDtoGet());
+        }
+
+
+        return result;
     }
 
 
     @GetMapping({"id"})
     public PersonDtoGet GetUserById(int id) {
-        return null;////////////////////////////
+        var model = _personService.GetUserById(id);
+        var result = new PersonDtoGet();
+
+        return result;
     }
 
 

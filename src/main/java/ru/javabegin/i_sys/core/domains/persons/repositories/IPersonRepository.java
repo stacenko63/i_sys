@@ -1,12 +1,15 @@
 package ru.javabegin.i_sys.core.domains.persons.repositories;
 
 import org.springframework.stereotype.Repository;
+import ru.javabegin.i_sys.core.domains.persons.Person;
 import ru.javabegin.i_sys.data.persons.PersonDBModel;
 import ru.javabegin.i_sys.web.controllers.persons.dto.PersonDtoPostOrPut;
 
+import java.util.ArrayList;
+
 @Repository
 public interface IPersonRepository {
-    int GetPersonsByPage(int id, int page);
+    ArrayList<Person> GetPersonsByPage(int page, int size);
 
     PersonDBModel GetUserById(int id);
 

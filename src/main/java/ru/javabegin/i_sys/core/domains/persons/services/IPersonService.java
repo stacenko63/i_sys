@@ -4,10 +4,12 @@ import org.springframework.stereotype.Service;
 import ru.javabegin.i_sys.core.domains.persons.Person;
 import ru.javabegin.i_sys.web.controllers.persons.dto.PersonDtoPostOrPut;
 
+import java.util.ArrayList;
+
 @Service
 public interface IPersonService {
 
-    //int GetPersonsByPage(int id, int page);
+    ArrayList<Person> GetPersonsByPage(int page, int size) throws Exception;
 
     Person GetUserById(int id);
 
