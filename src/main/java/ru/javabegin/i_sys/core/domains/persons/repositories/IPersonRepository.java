@@ -2,7 +2,6 @@ package ru.javabegin.i_sys.core.domains.persons.repositories;
 
 import org.springframework.stereotype.Repository;
 import ru.javabegin.i_sys.core.domains.persons.Person;
-import ru.javabegin.i_sys.web.controllers.persons.dto.PersonDtoPostOrPut;
 
 import java.util.ArrayList;
 
@@ -12,9 +11,9 @@ public interface IPersonRepository {
 
     Person GetUserById(int id);
 
-    void CreatePerson(PersonDtoPostOrPut person);
+    void CreatePerson(Person person);
 
-    void UpdatePerson(int id, PersonDtoPostOrPut person);
+    void UpdatePerson(int id, Person person);
 
     void DeletePerson(int id);
 

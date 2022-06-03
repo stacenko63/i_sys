@@ -2,7 +2,6 @@ package ru.javabegin.i_sys.core.domains.persons.services;
 
 import org.springframework.stereotype.Service;
 import ru.javabegin.i_sys.core.domains.persons.Person;
-import ru.javabegin.i_sys.web.controllers.persons.dto.PersonDtoPostOrPut;
 
 import java.util.ArrayList;
 
@@ -13,9 +12,9 @@ public interface IPersonService {
 
     Person GetUserById(int id);
 
-    void CreatePerson(PersonDtoPostOrPut person);
+    void CreatePerson(Person person);
 
-    void UpdatePerson(int id, PersonDtoPostOrPut person);
+    void UpdatePerson(int id, Person person);
 
     void DeletePerson(int id);
 

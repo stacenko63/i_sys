@@ -24,43 +24,38 @@ public class PersonController {
         var entity = _personService.GetPersonsByPage(page, size);
         var result = new ArrayList<PersonDtoGet>();
         for (var el: entity) {
-            result.add(new PersonDtoGet());
+            result.add(new PersonDtoGet(el));
         }
-
-
         return result;
     }
 
 
     @GetMapping({"id"})
-    public PersonDtoGet GetUserById(int id) {
-        var model = _personService.GetUserById(id);
-        var result = new PersonDtoGet();
-
-        return result;
+    public PersonDtoGet GetUserById(int id) throws Exception{
+        return new PersonDtoGet(_personService.GetUserById(id));
     }
 
 
     @PostMapping("/Add")
-    public void CreatePerson(@RequestBody PersonDtoPostOrPut person) {
-        _personService.CreatePerson(person);
+    public void CreatePerson(@RequestBody PersonDtoPostOrPut person) throws Exception{
+        _personService.CreatePerson(person.ConvertToCoreModel());
     }
 
 
     @PutMapping({"id"})
-    public void UpdatePerson(int id, @RequestBody PersonDtoPostOrPut person) {
-        _personService.UpdatePerson(id, person);
+    public void UpdatePerson(int id, @RequestBody PersonDtoPostOrPut person) throws Exception{
+        _personService.UpdatePerson(id, person.ConvertToCoreModel());
     }
 
 
     @DeleteMapping({"id"})
-    public void DeletePerson(int id) {
+    public void DeletePerson(int id) throws Exception{
         _personService.DeletePerson(id);
     }
 
 
     @GetMapping
-    public boolean CheckValidPassportByName(String name, String surname, String patronymic, String passportValue) {
+    public boolean CheckValidPassportByName(String name, String surname, String patronymic, String passportValue) throws Exception {
         return _personService.CheckValidPassportByName(name, surname, patronymic, passportValue);
     }
 
