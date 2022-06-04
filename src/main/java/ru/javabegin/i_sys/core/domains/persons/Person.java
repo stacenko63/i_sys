@@ -31,8 +31,6 @@ public class Person {
     public ArrayList<Contacts> Contacts;
 
 
-
-
     public static class Documents {
         public Documents(Long Id, String DocumentType, String Value) {
             this.Id = Id;

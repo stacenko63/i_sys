@@ -6,4 +6,5 @@ import ru.javabegin.i_sys.data.persons.ContactDBModel;
 
 @Repository
 public interface IContactRepository extends JpaRepository<ContactDBModel, Long> {
+    //List<ContactDBModel> findByPersonId(Long person_id);
 }

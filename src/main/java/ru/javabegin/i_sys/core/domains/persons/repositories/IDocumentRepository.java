@@ -6,4 +6,6 @@ import ru.javabegin.i_sys.data.persons.DocumentDBModel;
 
 @Repository
 public interface IDocumentRepository extends JpaRepository<DocumentDBModel, Long> {
+    //DocumentDBModel findByDocumentTypeAndValue(String document_type, String passport_value);
+    //List<DocumentDBModel> findByPersonId(Long person_id);
 }

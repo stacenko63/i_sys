@@ -5,5 +5,7 @@ import org.springframework.stereotype.Repository;
 import ru.javabegin.i_sys.data.persons.PersonDBModel;
 
 @Repository
+
 public interface IPersonRepository extends JpaRepository<PersonDBModel, Long> {
+    //List<PersonDBModel> findByNameAndSurnameAndPatronymic(String name, String surname, String patronymic);
 }

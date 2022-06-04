@@ -31,12 +31,12 @@ public class PersonController {
 
 
     @GetMapping({"id"})
-    public PersonDtoGet GetUserById(Long id) throws Exception{
-        return new PersonDtoGet(_personService.GetUserById(id));
+    public PersonDtoGet GetPersonById(Long id) throws Exception{
+        return new PersonDtoGet(_personService.GetPersonById(id));
     }
 
 
-    @PostMapping("/Add")
+    @PostMapping
     public void CreatePerson(@RequestBody PersonDtoPostOrPut person) throws Exception{
         _personService.CreatePerson(person.ConvertToCoreModel());
     }

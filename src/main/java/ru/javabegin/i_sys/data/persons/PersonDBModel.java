@@ -1,9 +1,12 @@
 package ru.javabegin.i_sys.data.persons;
 
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "persons")
+@EnableJpaRepositories
 public class PersonDBModel {
     @Id
     private Long Id;
@@ -15,7 +18,7 @@ public class PersonDBModel {
     private String Surname;
 
     @Column(name = "patronymic")
-    public String Patronymic;
+    private String Patronymic;
 
     public PersonDBModel(Long Id, String Name, String Surname, String Patronymic) {
         this.Id = Id;
@@ -27,4 +30,36 @@ public class PersonDBModel {
     public PersonDBModel() {
 
     }
+
+    public Long GetId() {
+        return Id;
+    }
+
+    public void SetName(String Name) {
+        this.Name = Name;
+    }
+
+    public String GetName() {
+        return Name;
+    }
+
+    public void SetSurname(String Surname) {
+        this.Name = Name;
+    }
+
+    public String GetSurname() {
+        return Name;
+    }
+
+    public void SetPatronymic(String Patronymic) {
+        this.Name = Name;
+    }
+
+    public String GetPatronymic() {
+        return Name;
+    }
+
+
+
+
 }

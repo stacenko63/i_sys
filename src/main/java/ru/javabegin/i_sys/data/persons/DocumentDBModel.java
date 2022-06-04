@@ -28,4 +28,11 @@ public class DocumentDBModel {
     public DocumentDBModel() {
 
     }
+
+
+    public Long GetId() {
+        return Id;
+    }
+
+
 }

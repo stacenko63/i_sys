@@ -51,13 +51,14 @@ public class PersonService implements IPersonService {
 
 
 
-    public Person GetUserById(Long id) throws Exception {
-        var result = _personRepository.getReferenceById(id);
+    public Person GetPersonById(Long id) throws Exception {
+/*        var result = _personRepository.findById(id).orElse(null);
         if (result == null)
         {
             throw new Exception("Пользователь с указанным id не найден в системе!");
-        }
-/////////////////
+        }*/
+
+
         return null;
 
 
@@ -75,7 +76,7 @@ public class PersonService implements IPersonService {
     public void CreatePerson(Person person) {
         PersonValidate(person);
 
-        _personRepository.save(new PersonDBModel(person.Id, person.Name, person.Surname, person.Patronymic));
+       _personRepository.save(new PersonDBModel(person.Id, person.Name, person.Surname, person.Patronymic));
         for (var el: person.Contacts)
         {
             _contactRepository.save(new ContactDBModel(el.ContactType, el.Contact, person.Id));
@@ -98,18 +99,66 @@ public class PersonService implements IPersonService {
 
     public void UpdatePerson(Long id, Person person) throws Exception {
         PersonValidate(person);
-        PersonDBModel result = _personRepository.findById(id).orElse(null);
+ /*       PersonDBModel result = _personRepository.findById(id).orElse(null);
 
         if (result == null)
         {
             throw new Exception("Пользователь с указанным id не найден в системе!");
-        }
+        }*/
+
 
         ///////////////////
     }
 
 
-    public void DeletePerson(Long id) {
+
+
+
+    public void DeletePerson(Long id) throws Exception {
+/*        var result = _personRepository.findById(id).orElse(null);
+        if (result == null)
+        {
+            throw new Exception("Пользователь с указанным id не найден в системе!");
+        }
+        _personRepository.delete(result);
+
+
+        var personsAddressesResult = _personAddressRepository.findByPersonId(id);
+        if (personsAddressesResult != null)
+        {
+            for (var el : personsAddressesResult)
+            {
+                _personAddressRepository.delete(el);
+            }
+        }
+
+        var documentsResult = _documentRepository.findByPersonId(id);
+        if (documentsResult != null)
+        {
+            for (var el : documentsResult)
+            {
+                _documentRepository.delete(el);
+            }
+        }
+
+        var contactsResult = _contactRepository.findByPersonId(id);
+        if (contactsResult != null)
+        {
+            for (var el : contactsResult)
+            {
+                _contactRepository.delete(el);
+            }
+        }
+
+
+        var addressesResult = _addressRepository.findByPersonId(id);
+        if (addressesResult != null)
+        {
+            for (var el: addressesResult)
+            {
+                _addressRepository.delete(el);
+            }
+        }*/
 
     }
 
@@ -133,8 +182,26 @@ public class PersonService implements IPersonService {
         {
             throw new Exception("Паспортные данные указаны некорректно!");
         }
-        //return _personRepository.CheckValidPassportByName(name, surname, patronymic, passportValue);
-        return true;
+
+
+/*        List<PersonDBModel> persons = _personRepository.findByNameAndSurnameAndPatronymic(name, surname, patronymic);
+        if (persons == null)
+        {
+            return false;
+        }
+
+        DocumentDBModel document = _documentRepository.findByDocumentTypeAndValue("passport", passportValue);
+        if (document == null)
+        {
+            return false;
+        }
+
+        for (var el: persons)
+        {
+            if (el.GetId() == document.GetId()) return true;
+        }*/
+
+        return false;
     }
 
 

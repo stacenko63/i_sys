@@ -10,13 +10,13 @@ public interface IPersonService {
 
     ArrayList<Person> GetPersonsByPage(int page, int size) throws Exception;
 
-    Person GetUserById(Long id) throws Exception;
+    Person GetPersonById(Long id) throws Exception;
 
     void CreatePerson(Person person);
 
     void UpdatePerson(Long id, Person person) throws Exception;
 
-    void DeletePerson(Long id);
+    void DeletePerson(Long id) throws Exception;
 
     boolean CheckValidPassportByName(String name, String surname, String patronymic, String passportValue) throws Exception;
 }

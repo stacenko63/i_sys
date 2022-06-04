@@ -6,4 +6,5 @@ import ru.javabegin.i_sys.data.persons.PersonAddressDBModel;
 
 @Repository
 public interface IPersonAddressRepository extends JpaRepository<PersonAddressDBModel, Long> {
+    //List<PersonAddressDBModel> findByPersonId(Long person_id);
 }
