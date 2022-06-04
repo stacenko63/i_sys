@@ -2,7 +2,8 @@ package ru.javabegin.i_sys.core.domains.persons.services;
 
 import org.springframework.stereotype.Service;
 import ru.javabegin.i_sys.core.domains.persons.Person;
-import ru.javabegin.i_sys.core.domains.persons.repositories.IPersonRepository;
+import ru.javabegin.i_sys.core.domains.persons.repositories.*;
+import ru.javabegin.i_sys.data.persons.*;
 
 import java.util.ArrayList;
 
@@ -10,10 +11,27 @@ import java.util.ArrayList;
 public class PersonService implements IPersonService {
 
 
+
+
     private final IPersonRepository _personRepository;
 
-    public PersonService(IPersonRepository personRepository) {
+    private final IAddressRepository _addressRepository;
+
+    private final IContactRepository _contactRepository;
+
+    private final IDocumentRepository _documentRepository;
+
+    private final IPersonAddressRepository _personAddressRepository;
+
+
+
+    public PersonService(IPersonRepository personRepository, IAddressRepository addressRepository,
+                         IContactRepository contactRepository, IDocumentRepository documentRepository, IPersonAddressRepository personAddressRepository) {
         _personRepository = personRepository;
+        _addressRepository = addressRepository;
+        _contactRepository = contactRepository;
+        _documentRepository = documentRepository;
+        _personAddressRepository = personAddressRepository;
     }
 
 
@@ -26,14 +44,26 @@ public class PersonService implements IPersonService {
         {
             throw new Exception("Размер страницы должен быть не меньше 1!");
         }
+        return null;
+        //return _personRepository.GetPersonsByPage(page, size);
 
-        return _personRepository.GetPersonsByPage(page, size);
     }
 
 
 
-    public Person GetUserById(int id) {
-        return _personRepository.GetUserById(id);
+    public Person GetUserById(Long id) throws Exception {
+        var result = _personRepository.getReferenceById(id);
+        if (result == null)
+        {
+            throw new Exception("Пользователь с указанным id не найден в системе!");
+        }
+/////////////////
+        return null;
+
+
+
+
+
     }
 
 
@@ -44,21 +74,47 @@ public class PersonService implements IPersonService {
 
     public void CreatePerson(Person person) {
         PersonValidate(person);
-        _personRepository.CreatePerson(person);
+
+        _personRepository.save(new PersonDBModel(person.Id, person.Name, person.Surname, person.Patronymic));
+        for (var el: person.Contacts)
+        {
+            _contactRepository.save(new ContactDBModel(el.ContactType, el.Contact, person.Id));
+        }
+
+        for (var el: person.Documents)
+        {
+            _documentRepository.save(new DocumentDBModel(el.DocumentType, el.Value, person.Id));
+        }
+
+
+        for (var el: person.Addresses)
+        {
+            _addressRepository.save(new AddressDBModel(el.Id, el.City, el.Street, el.StreetNumber, el.MailIndex));
+            _personAddressRepository.save(new PersonAddressDBModel(el.Id,el.AddressType, person.Id));
+        }
     }
 
 
 
-    public void UpdatePerson(int id, Person person) {
+    public void UpdatePerson(Long id, Person person) throws Exception {
         PersonValidate(person);
-        var entity = _personRepository.GetUserById(id);
-        _personRepository.UpdatePerson(id, person);
+        PersonDBModel result = _personRepository.findById(id).orElse(null);
+
+        if (result == null)
+        {
+            throw new Exception("Пользователь с указанным id не найден в системе!");
+        }
+
+        ///////////////////
     }
 
 
-    public void DeletePerson(int id) {
-        _personRepository.DeletePerson(id);
+    public void DeletePerson(Long id) {
+
     }
+
+
+
 
     public boolean CheckValidPassportByName(String name, String surname, String patronymic, String passportValue) throws Exception {
         if (name == null || name.isEmpty())
@@ -77,7 +133,8 @@ public class PersonService implements IPersonService {
         {
             throw new Exception("Паспортные данные указаны некорректно!");
         }
-        return _personRepository.CheckValidPassportByName(name, surname, patronymic, passportValue);
+        //return _personRepository.CheckValidPassportByName(name, surname, patronymic, passportValue);
+        return true;
     }
 
 

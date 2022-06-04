@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class PersonDtoGet {
 
-        public int Id;
+        public Long Id;
         public String Name;
         public String Surname;
         public String Patronymic;
@@ -53,7 +53,7 @@ public class PersonDtoGet {
                 this.Value = documents.Value;
             }
 
-            public int Id;
+            public Long Id;
             public String DocumentType;
             public String Value;
         }
@@ -68,11 +68,11 @@ public class PersonDtoGet {
                 this.MailIndex = addresses.MailIndex;
             }
 
-            public int Id;
+            public Long Id;
             public String AddressType;
             public String City;
             public String Street;
-            public String StreetNumber;
+            public int StreetNumber;
             public String MailIndex;
         }
 
@@ -83,7 +83,7 @@ public class PersonDtoGet {
                 this.Contact = contacts.Contact;
             }
 
-            public int Id;
+            public Long Id;
             public String ContactType;
             public String Contact;
 

@@ -6,15 +6,25 @@ import javax.persistence.*;
 @Table(name = "persons")
 public class PersonDBModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public int Id;
+    private Long Id;
 
     @Column(name = "name")
-    public String Name;
+    private String Name;
 
     @Column(name = "surname")
-    public String Surname;
+    private String Surname;
 
     @Column(name = "patronymic")
     public String Patronymic;
+
+    public PersonDBModel(Long Id, String Name, String Surname, String Patronymic) {
+        this.Id = Id;
+        this.Name = Name;
+        this.Surname = Surname;
+        this.Patronymic = Patronymic;
+    }
+
+    public PersonDBModel() {
+
+    }
 }

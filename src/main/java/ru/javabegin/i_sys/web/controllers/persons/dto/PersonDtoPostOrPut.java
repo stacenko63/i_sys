@@ -47,7 +47,7 @@ public class PersonDtoPostOrPut {
         public String AddressType;
         public String City;
         public String Street;
-        public String StreetNumber;
+        public int StreetNumber;
         public String MailIndex;
     }
 

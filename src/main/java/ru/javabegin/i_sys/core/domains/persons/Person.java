@@ -3,17 +3,13 @@ package ru.javabegin.i_sys.core.domains.persons;
 import java.util.ArrayList;
 
 public class Person {
-    public Person(int Id, String Name, String Surname, String Patronymic, ArrayList<Documents> Documents, ArrayList<Addresses> Addresses, ArrayList<Contacts> Contacts) {
-        this.Id = Id;
-        this.Name = Name;
-        this.Surname = Surname;
-        this.Patronymic = Patronymic;
-        this.Documents = Documents;
-        this.Addresses = Addresses;
-        this.Contacts = Contacts;
-    }
+
+    public static Long GenerateId = Long.valueOf(1);
+
 
     public Person(String Name, String Surname, String Patronymic, ArrayList<Documents> Documents, ArrayList<Addresses> Addresses, ArrayList<Contacts> Contacts) {
+        Id = GenerateId;
+        GenerateId++;
         this.Name = Name;
         this.Surname = Surname;
         this.Patronymic = Patronymic;
@@ -25,7 +21,7 @@ public class Person {
 
 
 
-    public int Id;
+    public Long Id;
     public String Name;
     public String Surname;
     public String Patronymic;
@@ -38,7 +34,7 @@ public class Person {
 
 
     public static class Documents {
-        public Documents(int Id, String DocumentType, String Value) {
+        public Documents(Long Id, String DocumentType, String Value) {
             this.Id = Id;
             this.DocumentType = DocumentType;
             this.Value = Value;
@@ -48,13 +44,14 @@ public class Person {
             this.DocumentType = DocumentType;
             this.Value = Value;
         }
-        public int Id;
+        public Long Id;
         public String DocumentType;
         public String Value;
     }
 
     public static class Addresses {
-        public Addresses (int Id, String AddressType, String City, String Street, String StreetNumber, String MailIndex) {
+        private static Long GenerateAddressId = Long.valueOf(1);
+        public Addresses (Long Id, String AddressType, String City, String Street, int StreetNumber, String MailIndex) {
             this.Id = Id;
             this.AddressType = AddressType;
             this.City = City;
@@ -63,24 +60,26 @@ public class Person {
             this.MailIndex = MailIndex;
         }
 
-        public Addresses (String AddressType, String City, String Street, String StreetNumber, String MailIndex) {
+        public Addresses (String AddressType, String City, String Street, int StreetNumber, String MailIndex) {
+            Id = GenerateAddressId;
+            GenerateAddressId++;
             this.AddressType = AddressType;
             this.City = City;
             this.Street = Street;
             this.StreetNumber = StreetNumber;
             this.MailIndex = MailIndex;
         }
-        public int Id;
+        public Long Id;
         public String AddressType;
         public String City;
         public String Street;
-        public String StreetNumber;
+        public int StreetNumber;
         public String MailIndex;
     }
 
     public static class Contacts {
 
-        public Contacts(int Id, String ContactType, String Contact) {
+        public Contacts(Long Id, String ContactType, String Contact) {
             this.Id = Id;
             this.ContactType = ContactType;
             this.Contact = Contact;
@@ -91,7 +90,7 @@ public class Person {
             this.Contact = Contact;
         }
 
-        public int Id;
+        public Long Id;
         public String ContactType;
         public String Contact;
 

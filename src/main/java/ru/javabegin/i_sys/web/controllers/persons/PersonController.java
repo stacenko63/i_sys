@@ -31,7 +31,7 @@ public class PersonController {
 
 
     @GetMapping({"id"})
-    public PersonDtoGet GetUserById(int id) throws Exception{
+    public PersonDtoGet GetUserById(Long id) throws Exception{
         return new PersonDtoGet(_personService.GetUserById(id));
     }
 
@@ -43,13 +43,13 @@ public class PersonController {
 
 
     @PutMapping({"id"})
-    public void UpdatePerson(int id, @RequestBody PersonDtoPostOrPut person) throws Exception{
+    public void UpdatePerson(Long id, @RequestBody PersonDtoPostOrPut person) throws Exception{
         _personService.UpdatePerson(id, person.ConvertToCoreModel());
     }
 
 
     @DeleteMapping({"id"})
-    public void DeletePerson(int id) throws Exception{
+    public void DeletePerson(Long id) throws Exception{
         _personService.DeletePerson(id);
     }
 
