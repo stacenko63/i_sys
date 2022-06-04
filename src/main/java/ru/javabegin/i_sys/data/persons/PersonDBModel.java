@@ -1,20 +1,20 @@
 package ru.javabegin.i_sys.data.persons;
 
-//import javax.persistence.*;
+import javax.persistence.*;
 
-//@Entity
-//@Table(name = "persons")
+@Entity
+@Table(name = "persons")
 public class PersonDBModel {
-    //@Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public int Id;
 
-    //@Column(name = "name")
+    @Column(name = "name")
     public String Name;
 
-    //@Column(name = "surname")
+    @Column(name = "surname")
     public String Surname;
 
-    //@Column(name = "patronymic")
+    @Column(name = "patronymic")
     public String Patronymic;
 }
