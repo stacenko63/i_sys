@@ -18,4 +18,5 @@ public interface IPersonRepository {
     void DeletePerson(int id);
 
     boolean CheckValidPassportByName(String name, String surname, String patronymic, String passportValue);
+
 }

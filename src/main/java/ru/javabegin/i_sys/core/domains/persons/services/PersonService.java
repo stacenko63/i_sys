@@ -37,14 +37,20 @@ public class PersonService implements IPersonService {
     }
 
 
+    private void PersonValidate(Person person) {
+        //валидация, которая может быть добавлена при необходимости
+    }
+
 
     public void CreatePerson(Person person) {
-///////////////
+        PersonValidate(person);
+        _personRepository.CreatePerson(person);
     }
 
 
 
     public void UpdatePerson(int id, Person person) {
+        PersonValidate(person);
         var entity = _personRepository.GetUserById(id);
         _personRepository.UpdatePerson(id, person);
     }

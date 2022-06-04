@@ -29,10 +29,6 @@ public class PersonRepository implements IPersonRepository {
 /////
     }
 
-
-
-
-
     public void DeletePerson(int id) {
 //////////////
     }
