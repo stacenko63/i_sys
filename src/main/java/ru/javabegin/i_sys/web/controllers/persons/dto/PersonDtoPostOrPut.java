@@ -9,9 +9,10 @@ public class PersonDtoPostOrPut {
     public String Surname;
     public String Patronymic;
 
-    public ArrayList<DocumentsDtoPostOrPut> Documents;
-    public ArrayList<AddressesDtoPostOrPut> Addresses;
-    public ArrayList<ContactsDtoPostOrPut> Contacts;
+    public ArrayList<DocumentsDtoPostOrPut> Documents = new ArrayList<>();
+    public ArrayList<AddressesDtoPostOrPut> Addresses = new ArrayList<>();
+    public ArrayList<ContactsDtoPostOrPut> Contacts = new ArrayList<>();
+
 
     public Person ConvertToCoreModel() {
 
@@ -38,12 +39,14 @@ public class PersonDtoPostOrPut {
     }
 
 
-    public class DocumentsDtoPostOrPut {
+    public static class DocumentsDtoPostOrPut {
+
         public String DocumentType;
         public String Value;
     }
 
-    public class AddressesDtoPostOrPut {
+    public static class AddressesDtoPostOrPut {
+
         public String AddressType;
         public String City;
         public String Street;
@@ -51,7 +54,8 @@ public class PersonDtoPostOrPut {
         public String MailIndex;
     }
 
-    public class ContactsDtoPostOrPut {
+    public static class ContactsDtoPostOrPut {
+
         public String ContactType;
         public String Contact;
 

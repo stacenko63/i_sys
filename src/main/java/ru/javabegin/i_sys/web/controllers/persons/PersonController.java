@@ -36,7 +36,7 @@ public class PersonController {
     }
 
 
-    @PostMapping
+    @PostMapping("/Add")
     public void CreatePerson(@RequestBody PersonDtoPostOrPut person) throws Exception{
         _personService.CreatePerson(person.ConvertToCoreModel());
     }
