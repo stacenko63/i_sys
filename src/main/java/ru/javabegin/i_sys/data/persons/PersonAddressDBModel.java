@@ -23,4 +23,13 @@ public class PersonAddressDBModel {
     public PersonAddressDBModel() {
 
     }
+
+    public Long GetId() {
+        return addressId;
+    }
+
+    public String GetAddressType() {
+        return addressType;
+    }
+
 }

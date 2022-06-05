@@ -32,4 +32,20 @@ public class AddressDBModel {
     public AddressDBModel() {
 
     }
+
+    public String GetCity() {
+        return city;
+    }
+
+    public String GetStreet() {
+        return street;
+    }
+
+    public int GetStreetNumber() {
+        return streetNumber;
+    }
+
+    public String GetMailIndex() {
+        return mailIndex;
+    }
 }

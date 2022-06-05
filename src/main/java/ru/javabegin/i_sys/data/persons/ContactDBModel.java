@@ -27,4 +27,17 @@ public class ContactDBModel {
     public ContactDBModel() {
 
     }
+
+    public Long GetId() {
+        return id;
+    }
+
+    public String GetContactType() {
+        return contactType;
+    }
+
+    public String GetContact() {
+        return contact;
+    }
+
 }

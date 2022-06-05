@@ -4,9 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ru.javabegin.i_sys.data.persons.PersonAddressDBModel;
 
-import java.util.List;
+import java.util.ArrayList;
 
 @Repository
 public interface IPersonAddressRepository extends JpaRepository<PersonAddressDBModel, Long> {
-    List<PersonAddressDBModel> findAllByPersonId(Long personId);
+    ArrayList<PersonAddressDBModel> findAllByPersonId(Long personId);
 }

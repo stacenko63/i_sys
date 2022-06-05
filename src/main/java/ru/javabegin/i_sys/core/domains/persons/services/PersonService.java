@@ -1,5 +1,6 @@
 package ru.javabegin.i_sys.core.domains.persons.services;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.javabegin.i_sys.core.domains.persons.Person;
@@ -7,6 +8,7 @@ import ru.javabegin.i_sys.core.domains.persons.repositories.*;
 import ru.javabegin.i_sys.data.persons.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PersonService implements IPersonService {
@@ -45,27 +47,79 @@ public class PersonService implements IPersonService {
         {
             throw new Exception("Размер страницы должен быть не меньше 1!");
         }
-        return null;
-        //return _personRepository.GetPersonsByPage(page, size);
 
+
+        ArrayList<Person> result = new ArrayList<>();
+
+        var personsResult = _personRepository.findAll();
+
+        int index = page * size - size - 1;
+        while (index > personsResult.size())
+        {
+            index -= size;
+        }
+        if (personsResult.size() - size < index)
+        {
+            index = personsResult.size() - size;
+        }
+
+
+        for (var el: personsResult)
+        {
+            result.add(GetPersonById(el.GetId()));
+            if (index == page * size)
+            {
+                break;
+            }
+            index++;
+        }
+
+
+
+        return result;
     }
 
 
 
     public Person GetPersonById(Long id) throws Exception {
-/*        var result = _personRepository.findById(id).orElse(null);
-        if (result == null)
+        var personsResult = _personRepository.findById(id).orElse(null);
+        if (personsResult == null)
         {
             throw new Exception("Пользователь с указанным id не найден в системе!");
-        }*/
+        }
+
+        var contactsResult = _contactRepository.findAllByPersonId(id);
+        ArrayList<Person.Contacts> contactsCoreResult = new ArrayList<>();
+        for (var el: contactsResult)
+        {
+            contactsCoreResult.add(new Person.Contacts(el.GetId(), el.GetContactType(), el.GetContact()));
+        }
 
 
-        return null;
+
+        var documentsResult = _documentRepository.findAllByPersonId(id);
+        ArrayList<Person.Documents> documentsCoreResult = new ArrayList<>();
+        for (var el: documentsResult)
+        {
+            documentsCoreResult.add(new Person.Documents(el.GetId(), el.GetDocumentType(), el.GetValue()));
+        }
 
 
 
+        ArrayList<Person.Addresses> addressesResult = new ArrayList<>();
+        var personsAddressesResult = _personAddressRepository.findAllByPersonId(id);
+
+        for (var el: personsAddressesResult)
+        {
+            var entity = _addressRepository.findById(el.GetId()).orElse(null);
+            addressesResult.add(new Person.Addresses(el.GetId(), el.GetAddressType(), entity.GetCity(), 
+                    entity.GetStreet(), entity.GetStreetNumber(), entity.GetMailIndex()));
+        }
 
 
+
+        return new Person(personsResult.GetName(), personsResult.GetSurname(),
+                personsResult.GetPatronymic(), documentsCoreResult, addressesResult, contactsCoreResult);
     }
 
 
@@ -100,15 +154,50 @@ public class PersonService implements IPersonService {
 
     public void UpdatePerson(Long id, Person person) throws Exception {
         PersonValidate(person);
- /*       PersonDBModel result = _personRepository.findById(id).orElse(null);
+        PersonDBModel result = _personRepository.findById(id).orElse(null);
 
         if (result == null)
         {
             throw new Exception("Пользователь с указанным id не найден в системе!");
-        }*/
+        }
+        
+        var personDB = _personRepository.findById(id).orElse(null);
+        personDB.SetName(person.Name);
+        personDB.SetSurname(person.Surname);
+        personDB.SetPatronymic(person.Patronymic);
+        
+        var personAddressDB = _personAddressRepository.findAllByPersonId(id);
+
+        ArrayList<PersonAddressDBModel> newPersonAddressesDB = new ArrayList<>();
+        for (var el: person.Addresses)
+        {
+            newPersonAddressesDB.add(new PersonAddressDBModel(el.Id, el.AddressType, id));
+
+            var newAddress = new AddressDBModel(el.Id, el.City, el.Street, el.StreetNumber, el.MailIndex);
+            if (_addressRepository.findByCityAndStreetAndStreetNumberAndMailIndex(el.City, el.Street, el.StreetNumber, el.MailIndex) == null)
+            {
+                _addressRepository.save(newAddress);
+            }
+        }
+        personAddressDB = newPersonAddressesDB;
+
+        var contactsDB = _contactRepository.findAllByPersonId(id);
+        ArrayList<ContactDBModel> newContactsDB = new ArrayList<>();
+        for (var el: person.Contacts)
+        {
+            newContactsDB.add(new ContactDBModel(el.ContactType, el.Contact, id));
+        }
+        contactsDB = newContactsDB;
 
 
-        ///////////////////
+        var documentsDB = _documentRepository.findAllByPersonId(id);
+        ArrayList<DocumentDBModel> newDocumentsDB = new ArrayList<>();
+        for (var el: person.Documents)
+        {
+            newContactsDB.add(new ContactDBModel(el.DocumentType, el.Value, id));
+        }
+        documentsDB = newDocumentsDB;
+
     }
 
 
@@ -116,7 +205,7 @@ public class PersonService implements IPersonService {
 
 
     public void DeletePerson(Long id) throws Exception {
-/*        var result = _personRepository.findById(id).orElse(null);
+        var result = _personRepository.findById(id).orElse(null);
         if (result == null)
         {
             throw new Exception("Пользователь с указанным id не найден в системе!");
@@ -124,7 +213,7 @@ public class PersonService implements IPersonService {
         _personRepository.delete(result);
 
 
-        var personsAddressesResult = _personAddressRepository.findByPersonId(id);
+        var personsAddressesResult = _personAddressRepository.findAllByPersonId(id);
         if (personsAddressesResult != null)
         {
             for (var el : personsAddressesResult)
@@ -133,7 +222,7 @@ public class PersonService implements IPersonService {
             }
         }
 
-        var documentsResult = _documentRepository.findByPersonId(id);
+        var documentsResult = _documentRepository.findAllByPersonId(id);
         if (documentsResult != null)
         {
             for (var el : documentsResult)
@@ -142,7 +231,7 @@ public class PersonService implements IPersonService {
             }
         }
 
-        var contactsResult = _contactRepository.findByPersonId(id);
+        var contactsResult = _contactRepository.findAllByPersonId(id);
         if (contactsResult != null)
         {
             for (var el : contactsResult)
@@ -150,16 +239,6 @@ public class PersonService implements IPersonService {
                 _contactRepository.delete(el);
             }
         }
-
-
-        var addressesResult = _addressRepository.findByPersonId(id);
-        if (addressesResult != null)
-        {
-            for (var el: addressesResult)
-            {
-                _addressRepository.delete(el);
-            }
-        }*/
 
     }
 
@@ -185,7 +264,7 @@ public class PersonService implements IPersonService {
         }
 
 
-/*        List<PersonDBModel> persons = _personRepository.findByNameAndSurnameAndPatronymic(name, surname, patronymic);
+        List<PersonDBModel> persons = _personRepository.findAllByNameAndSurnameAndPatronymic(name, surname, patronymic);
         if (persons == null)
         {
             return false;
@@ -200,7 +279,7 @@ public class PersonService implements IPersonService {
         for (var el: persons)
         {
             if (el.GetId() == document.GetId()) return true;
-        }*/
+        }
 
         return false;
     }

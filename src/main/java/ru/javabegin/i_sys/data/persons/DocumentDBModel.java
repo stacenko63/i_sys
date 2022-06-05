@@ -34,5 +34,13 @@ public class DocumentDBModel {
         return id;
     }
 
+    public String GetDocumentType() {
+        return documentType;
+    }
+
+    public String GetValue() {
+        return value;
+    }
+
 
 }
