@@ -1,5 +1,6 @@
 package ru.javabegin.i_sys.core.domains.persons.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.javabegin.i_sys.core.domains.persons.Person;
 import ru.javabegin.i_sys.core.domains.persons.repositories.*;
@@ -24,7 +25,7 @@ public class PersonService implements IPersonService {
     private final IPersonAddressRepository _personAddressRepository;
 
 
-
+    @Autowired
     public PersonService(IPersonRepository personRepository, IAddressRepository addressRepository,
                          IContactRepository contactRepository, IDocumentRepository documentRepository, IPersonAddressRepository personAddressRepository) {
         _personRepository = personRepository;

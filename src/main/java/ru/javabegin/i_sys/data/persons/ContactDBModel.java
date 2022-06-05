@@ -7,21 +7,21 @@ import javax.persistence.*;
 public class ContactDBModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @Column(name = "contact_type")
-    private String ContactType;
+    private String contactType;
 
     @Column(name = "contact")
-    private String Contact;
+    private String contact;
 
     @Column(name = "person_id")
-    private Long PersonId;
+    private Long personId;
 
     public ContactDBModel(String ContactType, String Contact, Long PersonId) {
-        this.ContactType = ContactType;
-        this.Contact = Contact;
-        this.PersonId = PersonId;
+        contactType = ContactType;
+        contact = Contact;
+        personId = PersonId;
     }
 
     public ContactDBModel() {

@@ -7,21 +7,21 @@ import javax.persistence.*;
 public class DocumentDBModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
 
     @Column(name = "document_type")
-    private String DocumentType;
+    private String documentType;
 
     @Column(name = "value")
-    private String Value;
+    private String value;
 
     @Column(name = "person_id")
-    private Long PersonId;
+    private Long personId;
 
     public DocumentDBModel(String DocumentType, String Value, Long PersonId) {
-        this.DocumentType = DocumentType;
-        this.Value = Value;
-        this.PersonId = PersonId;
+        documentType = DocumentType;
+        value = Value;
+        personId = PersonId;
     }
 
 
@@ -31,7 +31,7 @@ public class DocumentDBModel {
 
 
     public Long GetId() {
-        return Id;
+        return id;
     }
 
 

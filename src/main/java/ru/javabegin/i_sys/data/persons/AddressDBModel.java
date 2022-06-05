@@ -6,26 +6,26 @@ import javax.persistence.*;
 @Table(name = "addresses")
 public class AddressDBModel {
     @Id
-    private Long Id;
+    private Long id;
 
     @Column(name = "city")
-    private String City;
+    private String city;
 
     @Column(name = "street")
-    private String Street;
+    private String street;
 
     @Column(name = "street_number")
-    private int StreetNumber;
+    private int streetNumber;
 
     @Column(name = "mail_index")
-    private String MailIndex;
+    private String mailIndex;
 
     public AddressDBModel(Long Id, String City, String Street, int StreetNumber, String MailIndex) {
-        this.Id = Id;
-        this.City = City;
-        this.Street = Street;
-        this.StreetNumber = StreetNumber;
-        this.MailIndex = MailIndex;
+        id = Id;
+        city = City;
+        street = Street;
+        streetNumber = StreetNumber;
+        mailIndex = MailIndex;
     }
 
 

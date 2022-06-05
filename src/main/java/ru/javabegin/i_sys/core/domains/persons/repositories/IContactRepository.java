@@ -4,7 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ru.javabegin.i_sys.data.persons.ContactDBModel;
 
+import java.util.List;
+
 @Repository
 public interface IContactRepository extends JpaRepository<ContactDBModel, Long> {
-    //List<ContactDBModel> findByPersonId(Long person_id);
+    List<ContactDBModel> findAllByPersonId(Long personId);
 }

@@ -6,18 +6,18 @@ import javax.persistence.*;
 @Table(name = "persons_addresses")
 public class PersonAddressDBModel {
     @Id
-    private Long AddressId;
+    private Long addressId;
 
     @Column(name = "address_type")
-    private String AddressType;
+    private String addressType;
 
     @Column(name = "person_id")
-    private Long PersonId;
+    private Long personId;
 
     public PersonAddressDBModel(Long AddressId, String AddressType, Long PersonId) {
-        this.AddressId = AddressId;
-        this.AddressType = AddressType;
-        this.PersonId = PersonId;
+        addressId = AddressId;
+        addressType = AddressType;
+        personId = PersonId;
     }
 
     public PersonAddressDBModel() {

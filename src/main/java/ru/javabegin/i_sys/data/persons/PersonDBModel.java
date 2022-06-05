@@ -9,22 +9,22 @@ import javax.persistence.*;
 @EnableJpaRepositories
 public class PersonDBModel {
     @Id
-    private Long Id;
+    private Long id;
 
     @Column(name = "name")
-    private String Name;
+    private String name;
 
     @Column(name = "surname")
-    private String Surname;
+    private String surname;
 
     @Column(name = "patronymic")
-    private String Patronymic;
+    private String patronymic;
 
     public PersonDBModel(Long Id, String Name, String Surname, String Patronymic) {
-        this.Id = Id;
-        this.Name = Name;
-        this.Surname = Surname;
-        this.Patronymic = Patronymic;
+        id = Id;
+        name = Name;
+        surname = Surname;
+        patronymic = Patronymic;
     }
 
     public PersonDBModel() {
@@ -32,31 +32,31 @@ public class PersonDBModel {
     }
 
     public Long GetId() {
-        return Id;
+        return id;
     }
 
     public void SetName(String Name) {
-        this.Name = Name;
+        name = Name;
     }
 
     public String GetName() {
-        return Name;
+        return name;
     }
 
     public void SetSurname(String Surname) {
-        this.Name = Name;
+        surname = Surname;
     }
 
     public String GetSurname() {
-        return Name;
+        return surname;
     }
 
     public void SetPatronymic(String Patronymic) {
-        this.Name = Name;
+        patronymic = Patronymic;
     }
 
     public String GetPatronymic() {
-        return Name;
+        return patronymic;
     }
 
 
