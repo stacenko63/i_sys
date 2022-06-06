@@ -40,6 +40,8 @@ public class PersonDtoGet {
             this.Surname = person.Surname;
             this.Patronymic = person.Patronymic;
             this.Documents = newDocuments;
+            this.Contacts = newContacts;
+            this.Addresses = newAddresses;
 
         }
 

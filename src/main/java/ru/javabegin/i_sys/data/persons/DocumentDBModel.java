@@ -42,5 +42,9 @@ public class DocumentDBModel {
         return value;
     }
 
+    public Long GetPersonId() {
+        return personId;
+    }
+
 
 }

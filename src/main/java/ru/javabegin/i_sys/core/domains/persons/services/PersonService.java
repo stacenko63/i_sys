@@ -4,7 +4,7 @@ package ru.javabegin.i_sys.core.domains.persons.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.javabegin.i_sys.core.domains.persons.Person;
-import ru.javabegin.i_sys.core.domains.persons.repositories.*;
+import ru.javabegin.i_sys.core.domains.persons.repositories.repositories_for_person.*;
 import ru.javabegin.i_sys.data.persons.*;
 
 import java.util.ArrayList;
@@ -62,6 +62,10 @@ public class PersonService implements IPersonService {
         {
             index = personsResult.size() - size;
         }
+        if (index < 0)
+        {
+            index = 0;
+        }
 
 
         for (var el: personsResult)
@@ -118,7 +122,7 @@ public class PersonService implements IPersonService {
 
 
 
-        return new Person(personsResult.GetName(), personsResult.GetSurname(),
+        return new Person(id, personsResult.GetName(), personsResult.GetSurname(),
                 personsResult.GetPatronymic(), documentsCoreResult, addressesResult, contactsCoreResult);
     }
 
@@ -160,43 +164,10 @@ public class PersonService implements IPersonService {
         {
             throw new Exception("Пользователь с указанным id не найден в системе!");
         }
-        
-        var personDB = _personRepository.findById(id).orElse(null);
-        personDB.SetName(person.Name);
-        personDB.SetSurname(person.Surname);
-        personDB.SetPatronymic(person.Patronymic);
-        
-        var personAddressDB = _personAddressRepository.findAllByPersonId(id);
 
-        ArrayList<PersonAddressDBModel> newPersonAddressesDB = new ArrayList<>();
-        for (var el: person.Addresses)
-        {
-            newPersonAddressesDB.add(new PersonAddressDBModel(el.Id, el.AddressType, id));
-
-            var newAddress = new AddressDBModel(el.Id, el.City, el.Street, el.StreetNumber, el.MailIndex);
-            if (_addressRepository.findByCityAndStreetAndStreetNumberAndMailIndex(el.City, el.Street, el.StreetNumber, el.MailIndex) == null)
-            {
-                _addressRepository.save(newAddress);
-            }
-        }
-        personAddressDB = newPersonAddressesDB;
-
-        var contactsDB = _contactRepository.findAllByPersonId(id);
-        ArrayList<ContactDBModel> newContactsDB = new ArrayList<>();
-        for (var el: person.Contacts)
-        {
-            newContactsDB.add(new ContactDBModel(el.Id, el.ContactType, el.Contact, id));
-        }
-        contactsDB = newContactsDB;
-
-
-        var documentsDB = _documentRepository.findAllByPersonId(id);
-        ArrayList<DocumentDBModel> newDocumentsDB = new ArrayList<>();
-        for (var el: person.Documents)
-        {
-            newContactsDB.add(new ContactDBModel(el.Id, el.DocumentType, el.Value, id));
-        }
-        documentsDB = newDocumentsDB;
+        DeletePerson(id);
+        person.Id = id;
+        CreatePerson(person);
 
     }
 
@@ -278,7 +249,10 @@ public class PersonService implements IPersonService {
 
         for (var el: persons)
         {
-            if (el.GetId() == document.GetId()) return true;
+            if (el.GetId().equals(document.GetPersonId()))
+            {
+                return true;
+            }
         }
 
         return false;

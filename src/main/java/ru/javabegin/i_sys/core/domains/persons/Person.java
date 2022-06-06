@@ -18,6 +18,16 @@ public class Person {
         this.Contacts = Contacts;
     }
 
+    public Person(Long Id, String Name, String Surname, String Patronymic, ArrayList<Documents> Documents, ArrayList<Addresses> Addresses, ArrayList<Contacts> Contacts) {
+        this.Id = Id;
+        this.Name = Name;
+        this.Surname = Surname;
+        this.Patronymic = Patronymic;
+        this.Documents = Documents;
+        this.Addresses = Addresses;
+        this.Contacts = Contacts;
+    }
+
 
 
 
