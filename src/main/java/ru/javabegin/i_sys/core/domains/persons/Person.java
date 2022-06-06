@@ -1,15 +1,15 @@
 package ru.javabegin.i_sys.core.domains.persons;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Person {
 
-    public static Long GenerateId = Long.valueOf(1);
+
 
 
     public Person(String Name, String Surname, String Patronymic, ArrayList<Documents> Documents, ArrayList<Addresses> Addresses, ArrayList<Contacts> Contacts) {
-        Id = GenerateId;
-        GenerateId++;
+        this.Id = new Random().nextLong();
         this.Name = Name;
         this.Surname = Surname;
         this.Patronymic = Patronymic;
@@ -39,6 +39,7 @@ public class Person {
         }
 
         public Documents(String DocumentType, String Value) {
+            this.Id = new Random().nextLong();
             this.DocumentType = DocumentType;
             this.Value = Value;
         }
@@ -48,7 +49,6 @@ public class Person {
     }
 
     public static class Addresses {
-        private static Long GenerateAddressId = Long.valueOf(1);
         public Addresses (Long Id, String AddressType, String City, String Street, int StreetNumber, String MailIndex) {
             this.Id = Id;
             this.AddressType = AddressType;
@@ -59,8 +59,7 @@ public class Person {
         }
 
         public Addresses (String AddressType, String City, String Street, int StreetNumber, String MailIndex) {
-            Id = GenerateAddressId;
-            GenerateAddressId++;
+            this.Id = new Random().nextLong();
             this.AddressType = AddressType;
             this.City = City;
             this.Street = Street;
@@ -84,6 +83,7 @@ public class Person {
         }
 
         public Contacts(String ContactType, String Contact) {
+            this.Id = new Random().nextLong();
             this.ContactType = ContactType;
             this.Contact = Contact;
         }

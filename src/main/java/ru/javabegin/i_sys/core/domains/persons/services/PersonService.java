@@ -134,12 +134,12 @@ public class PersonService implements IPersonService {
        _personRepository.save(new PersonDBModel(person.Id, person.Name, person.Surname, person.Patronymic));
         for (var el: person.Contacts)
         {
-            _contactRepository.save(new ContactDBModel(el.ContactType, el.Contact, person.Id));
+            _contactRepository.save(new ContactDBModel(el.Id, el.ContactType, el.Contact, person.Id));
         }
 
         for (var el: person.Documents)
         {
-            _documentRepository.save(new DocumentDBModel(el.DocumentType, el.Value, person.Id));
+            _documentRepository.save(new DocumentDBModel(el.Id, el.DocumentType, el.Value, person.Id));
         }
 
 
@@ -185,7 +185,7 @@ public class PersonService implements IPersonService {
         ArrayList<ContactDBModel> newContactsDB = new ArrayList<>();
         for (var el: person.Contacts)
         {
-            newContactsDB.add(new ContactDBModel(el.ContactType, el.Contact, id));
+            newContactsDB.add(new ContactDBModel(el.Id, el.ContactType, el.Contact, id));
         }
         contactsDB = newContactsDB;
 
@@ -194,7 +194,7 @@ public class PersonService implements IPersonService {
         ArrayList<DocumentDBModel> newDocumentsDB = new ArrayList<>();
         for (var el: person.Documents)
         {
-            newContactsDB.add(new ContactDBModel(el.DocumentType, el.Value, id));
+            newContactsDB.add(new ContactDBModel(el.Id, el.DocumentType, el.Value, id));
         }
         documentsDB = newDocumentsDB;
 

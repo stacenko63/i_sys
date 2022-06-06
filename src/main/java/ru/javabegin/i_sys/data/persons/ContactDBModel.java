@@ -3,10 +3,9 @@ package ru.javabegin.i_sys.data.persons;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "documents")
+@Table(name = "contacts")
 public class ContactDBModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "contact_type")
@@ -18,7 +17,8 @@ public class ContactDBModel {
     @Column(name = "person_id")
     private Long personId;
 
-    public ContactDBModel(String ContactType, String Contact, Long PersonId) {
+    public ContactDBModel(Long Id, String ContactType, String Contact, Long PersonId) {
+        id = Id;
         contactType = ContactType;
         contact = Contact;
         personId = PersonId;

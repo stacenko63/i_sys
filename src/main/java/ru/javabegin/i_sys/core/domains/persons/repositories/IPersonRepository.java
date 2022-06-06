@@ -11,4 +11,5 @@ public interface IPersonRepository extends JpaRepository<PersonDBModel, Long> {
     ArrayList<PersonDBModel> findAllByNameAndSurnameAndPatronymic(String name, String surname, String patronymic);
 
 
+
 }

@@ -6,7 +6,6 @@ import javax.persistence.*;
 @Table(name = "documents")
 public class DocumentDBModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "document_type")
@@ -18,7 +17,8 @@ public class DocumentDBModel {
     @Column(name = "person_id")
     private Long personId;
 
-    public DocumentDBModel(String DocumentType, String Value, Long PersonId) {
+    public DocumentDBModel(Long Id, String DocumentType, String Value, Long PersonId) {
+        id = Id;
         documentType = DocumentType;
         value = Value;
         personId = PersonId;
