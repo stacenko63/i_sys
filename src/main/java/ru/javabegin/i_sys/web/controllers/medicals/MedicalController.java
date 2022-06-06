@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.javabegin.i_sys.core.domains.medicals.services.IMedicalApiService;
 import ru.javabegin.i_sys.web.controllers.medicals.dto.MedicalDtoGet;
 
+import java.io.FileNotFoundException;
+
 @RestController
 @RequestMapping("/medical")
 public class MedicalController {
@@ -18,12 +20,12 @@ public class MedicalController {
     }
 
     @PostMapping("/Add")
-    public void AddFile() {
-
+    public void AddFile(String filePath) throws FileNotFoundException {
+        _medicalApiService.AddFile(filePath);
     }
 
     @GetMapping("/passport")
     public MedicalDtoGet GetVaccineInfoByPassport(String passport) {
-        return null;
+        return new MedicalDtoGet(_medicalApiService.GetVaccineInfoByPassport(passport));
     }
 }
