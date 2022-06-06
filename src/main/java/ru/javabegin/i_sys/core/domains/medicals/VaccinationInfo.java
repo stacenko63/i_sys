@@ -1,4 +1,4 @@
-package ru.javabegin.i_sys.core.domains.persons;
+package ru.javabegin.i_sys.core.domains.medicals;
 
 import java.util.Date;
 

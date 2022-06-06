@@ -1,4 +1,4 @@
-package ru.javabegin.i_sys.core.domains.persons.repositories.repositories_for_person;
+package ru.javabegin.i_sys.core.domains.persons.repositories;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.javabegin.i_sys.core.domains.persons.services.IMedicalApiService;
+import ru.javabegin.i_sys.core.domains.medicals.services.IMedicalApiService;
 import ru.javabegin.i_sys.web.controllers.medicals.dto.MedicalDtoGet;
 
 @RestController

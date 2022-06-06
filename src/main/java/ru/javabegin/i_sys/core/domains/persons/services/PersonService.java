@@ -4,7 +4,7 @@ package ru.javabegin.i_sys.core.domains.persons.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.javabegin.i_sys.core.domains.persons.Person;
-import ru.javabegin.i_sys.core.domains.persons.repositories.repositories_for_person.*;
+import ru.javabegin.i_sys.core.domains.persons.repositories.*;
 import ru.javabegin.i_sys.data.persons.*;
 
 import java.util.ArrayList;
