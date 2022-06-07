@@ -33,7 +33,7 @@ public class MedicalApiService implements IMedicalApiService {
         _personService = personService;
     }
 
-    @Override
+
     public void AddFile(String filePath) throws Exception {
         List<MedicalCsvRead> beans = new CsvToBeanBuilder(new FileReader(filePath))
                 .withType(Medical.class)
@@ -83,7 +83,7 @@ public class MedicalApiService implements IMedicalApiService {
 
     }
 
-    @Override
+
     public Medical GetVaccineInfoByPassport(String passport) throws Exception {
 
         if (passport == null || !passport.matches("[0-9]{4}\\s{1}[0-9]{6}"))
