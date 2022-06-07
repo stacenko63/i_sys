@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 public interface IMedicalApiService {
 
 
-    void AddFile(String filePath) throws FileNotFoundException;
+    void AddFile(String filePath) throws Exception;
 
-    Medical GetVaccineInfoByPassport(String passport);
+    Medical GetVaccineInfoByPassport(String passport) throws Exception;
 }

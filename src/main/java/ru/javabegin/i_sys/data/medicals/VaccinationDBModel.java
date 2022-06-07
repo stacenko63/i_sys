@@ -10,23 +10,18 @@ import java.util.Date;
 @Table(name = "vaccinations")
 public class VaccinationDBModel {
 
-    /*@Id
-    private Long id;
-
-    @Column(name = "vaccination_date")
-    private Date vaccinationDate;
-
-    @Column(name = "patient_name")
-    private String Name;
-
-    @Column(name = "passport")
-    private String passport;
-
-    @Column(name = "vaccine_name")
-    private String vaccineName;
-
-    @Column(name = "vaccination_point")
-    private String vaccinationPoint;*/
+    public VaccinationDBModel(Long Id, Date VaccinationDate, String PatientName, String PatientSurname,
+                              String PatientPatronymic, String Passport, Long VaccineId, Long PointId)
+    {
+        id = Id;
+        vaccinationDate = VaccinationDate;
+        patientName = PatientName;
+        patientSurname = PatientSurname;
+        patientPatronymic = PatientPatronymic;
+        passport = Passport;
+        vaccineId = VaccineId;
+        pointId = PointId;
+    }
 
 
     @Id
@@ -35,16 +30,59 @@ public class VaccinationDBModel {
     @Column(name = "vaccination_date")
     private Date vaccinationDate;
 
-    @Column(name = "patient_id")
-    private Long patientId;
+    @Column(name = "patient_name")
+    private String patientName;
+
+    @Column(name = "patient_surname")
+    private String patientSurname;
+
+    @Column(name = "patient_patronymic")
+    private String patientPatronymic;
 
     @Column(name = "passport")
-    private Long passportId;
+    private String passport;
 
     @Column(name = "vaccine_id")
     private Long vaccineId;
 
-    @Column(name = "vaccination_point_id")
-    private Long vaccinationPointId;
+    @Column(name = "point_id")
+    private Long pointId;
+
+    public Long GetId() {
+        return id;
+    }
+
+    public Date GetVaccinationDate() {
+        return vaccinationDate;
+    }
+
+    public String GetPatientName() {
+        return patientName;
+    }
+
+    public String GetPatientSurname() {
+        return patientSurname;
+    }
+
+    public String GetPatronymic() {
+        return patientPatronymic;
+    }
+
+    public String GetPatientPassport() {
+        return passport;
+    }
+
+    public Long GetVaccineId() {
+        return vaccineId;
+    }
+
+    public Long GetPointId() {
+        return pointId;
+    }
+
+
+
+
+
 
 }

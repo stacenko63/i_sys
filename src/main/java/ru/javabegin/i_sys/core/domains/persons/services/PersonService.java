@@ -229,7 +229,7 @@ public class PersonService implements IPersonService {
         {
             throw new Exception("Отчество указано некорректно!");
         }
-        if (passportValue == null || passportValue.isEmpty() || !passportValue.matches("[0-9]{4}\\s{1}[0-9]{6}"))
+        if (passportValue == null || !passportValue.matches("[0-9]{4}\\s{1}[0-9]{6}"))
         {
             throw new Exception("Паспортные данные указаны некорректно!");
         }

@@ -16,4 +16,16 @@ public class VaccinationCenterDBModel {
 
     @Column(name = "address")
     private String address;
+
+    public String GetName() {
+        return name;
+    }
+
+    public String GetAddress() {
+        return address;
+    }
+
+    public Long GetId() {
+        return id;
+    }
 }
