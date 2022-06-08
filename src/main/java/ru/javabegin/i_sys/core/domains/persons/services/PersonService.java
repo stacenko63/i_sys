@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.javabegin.i_sys.core.domains.persons.Person;
 import ru.javabegin.i_sys.core.domains.persons.repositories.*;
 import ru.javabegin.i_sys.data.persons.*;
+import ru.javabegin.i_sys.web.exceptions.ValidationException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,11 +42,11 @@ public class PersonService implements IPersonService {
     public ArrayList<Person> GetPersonsByPage(int page, int size) throws Exception {
         if (page < 1)
         {
-            throw new Exception("Номер страницы должен быть не меньше 1!");
+            throw new ValidationException("Номер страницы должен быть не меньше 1!");
         }
         if (size < 1)
         {
-            throw new Exception("Размер страницы должен быть не меньше 1!");
+            throw new ValidationException("Размер страницы должен быть не меньше 1!");
         }
 
 
@@ -89,7 +90,7 @@ public class PersonService implements IPersonService {
         var personsResult = _personRepository.findById(id).orElse(null);
         if (personsResult == null)
         {
-            throw new Exception("Пользователь с указанным id не найден в системе!");
+            throw new ValidationException("Пользователь с указанным id не найден в системе!");
         }
 
         var contactsResult = _contactRepository.findAllByPersonId(id);
@@ -162,7 +163,7 @@ public class PersonService implements IPersonService {
 
         if (result == null)
         {
-            throw new Exception("Пользователь с указанным id не найден в системе!");
+            throw new ValidationException("Пользователь с указанным id не найден в системе!");
         }
 
         DeletePerson(id);
@@ -179,7 +180,7 @@ public class PersonService implements IPersonService {
         var result = _personRepository.findById(id).orElse(null);
         if (result == null)
         {
-            throw new Exception("Пользователь с указанным id не найден в системе!");
+            throw new ValidationException("Пользователь с указанным id не найден в системе!");
         }
         _personRepository.delete(result);
 
@@ -219,19 +220,19 @@ public class PersonService implements IPersonService {
     public boolean CheckValidPassportByName(String name, String surname, String patronymic, String passportValue) throws Exception {
         if (name == null || name.isEmpty())
         {
-            throw new Exception("Имя указано некорректно!");
+            throw new ValidationException("Имя указано некорректно!");
         }
         if (surname == null || surname.isEmpty())
         {
-            throw new Exception("Фамилия указана некорректно!");
+            throw new ValidationException("Фамилия указана некорректно!");
         }
         if (patronymic == null || patronymic.isEmpty())
         {
-            throw new Exception("Отчество указано некорректно!");
+            throw new ValidationException("Отчество указано некорректно!");
         }
         if (passportValue == null || !passportValue.matches("[0-9]{4}\\s{1}[0-9]{6}"))
         {
-            throw new Exception("Паспортные данные указаны некорректно!");
+            throw new ValidationException("Паспортные данные указаны некорректно!");
         }
 
 
