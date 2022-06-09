@@ -7,12 +7,16 @@ import ru.javabegin.i_sys.web.controllers.persons.dto.PersonDtoGet;
 import ru.javabegin.i_sys.web.controllers.persons.dto.PersonDtoPostOrPut;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
+
 
 @RestController
 @RequestMapping("/person")
 public class PersonController {
 
     private final IPersonService _personService;
+
+    private static final Logger Log = Logger.getLogger("person_logger");
 
     public PersonController(IPersonService personService) {
         _personService = personService;
@@ -21,6 +25,7 @@ public class PersonController {
 
     @GetMapping("/GetAllPersons")
     public ArrayList<PersonDtoGet> GetPersonsByPage(int page, int size) throws Exception {
+        Log.info("start GetPersonByPage");
         var entity = _personService.GetPersonsByPage(page, size);
         var result = new ArrayList<PersonDtoGet>();
         for (var el: entity) {

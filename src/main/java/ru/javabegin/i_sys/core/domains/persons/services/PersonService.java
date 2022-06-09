@@ -42,11 +42,11 @@ public class PersonService implements IPersonService {
     public ArrayList<Person> GetPersonsByPage(int page, int size) throws Exception {
         if (page < 1)
         {
-            throw new ValidationException("Номер страницы должен быть не меньше 1!");
+            throw new ValidationException("The page number must be at least 1!");
         }
         if (size < 1)
         {
-            throw new ValidationException("Размер страницы должен быть не меньше 1!");
+            throw new ValidationException("The page size must be at least 1!");
         }
 
 
@@ -90,7 +90,7 @@ public class PersonService implements IPersonService {
         var personsResult = _personRepository.findById(id).orElse(null);
         if (personsResult == null)
         {
-            throw new ValidationException("Пользователь с указанным id не найден в системе!");
+            throw new ValidationException("The user with the specified id was not found in the system!");
         }
 
         var contactsResult = _contactRepository.findAllByPersonId(id);
@@ -163,7 +163,7 @@ public class PersonService implements IPersonService {
 
         if (result == null)
         {
-            throw new ValidationException("Пользователь с указанным id не найден в системе!");
+            throw new ValidationException("The user with the specified id was not found in the system!");
         }
 
         DeletePerson(id);
@@ -180,7 +180,7 @@ public class PersonService implements IPersonService {
         var result = _personRepository.findById(id).orElse(null);
         if (result == null)
         {
-            throw new ValidationException("Пользователь с указанным id не найден в системе!");
+            throw new ValidationException("The user with the specified id was not found in the system!");
         }
         _personRepository.delete(result);
 
@@ -220,19 +220,19 @@ public class PersonService implements IPersonService {
     public boolean CheckValidPassportByName(String name, String surname, String patronymic, String passportValue) throws Exception {
         if (name == null || name.isEmpty())
         {
-            throw new ValidationException("Имя указано некорректно!");
+            throw new ValidationException("The name is incorrect!");
         }
         if (surname == null || surname.isEmpty())
         {
-            throw new ValidationException("Фамилия указана некорректно!");
+            throw new ValidationException("The surname is incorrect!");
         }
         if (patronymic == null || patronymic.isEmpty())
         {
-            throw new ValidationException("Отчество указано некорректно!");
+            throw new ValidationException("The patronymic is incorrect!");
         }
         if (passportValue == null || !passportValue.matches("[0-9]{4}\\s{1}[0-9]{6}"))
         {
-            throw new ValidationException("Паспортные данные указаны некорректно!");
+            throw new ValidationException("The passport is incorrect!");
         }
 
 

@@ -9,6 +9,7 @@ import ru.javabegin.i_sys.core.domains.medicals.repositories.IVaccinationReposit
 import ru.javabegin.i_sys.core.domains.medicals.repositories.IVaccineRepository;
 import ru.javabegin.i_sys.core.domains.persons.services.IPersonService;
 import ru.javabegin.i_sys.data.medicals.VaccinationDBModel;
+import ru.javabegin.i_sys.web.exceptions.ValidationException;
 
 import java.io.FileReader;
 import java.util.List;
@@ -46,18 +47,18 @@ public class MedicalApiService implements IMedicalApiService {
 
                     el.VaccinationDate == null || el.VaccinePointName == null)
             {
-                throw new Exception("Некорректный ввод данных в файле!");
+                throw new ValidationException("Incorrect data entry in the file!");
             }
 
             if (el.PassportValue.matches("[0-9]{4}\\s{1}[0-9]{6}"))
             {
-                throw new Exception("Паспортные данные указаны некорректно!");
+                throw new ValidationException("The passport is incorrect!");
             }
 
 
             if (!_personService.CheckValidPassportByName(el.Name, el.Surname, el.Patronymic, el.PassportValue))
             {
-                throw new Exception("Некорректная связь ФИО с паспортом!");
+                throw new ValidationException("Incorrect connection of the full name with the passport!");
             }
 
             Long Id = el.Id.matches("'^\\d+$'") ? Long.parseLong(el.Id) : new Random().nextLong();
@@ -66,14 +67,14 @@ public class MedicalApiService implements IMedicalApiService {
 
             if (point == null)
             {
-                throw new Exception("Пункт вакцинации с указанным названием не найден в системе!");
+                throw new ValidationException("The vaccination point with the specified name was not found in the system!");
             }
 
             var vaccine = _vaccineRepository.findByName(el.VaccineName);
 
             if (vaccine == null)
             {
-                throw new Exception("Вакцина с указанным названием не найдена в системе!");
+                throw new ValidationException("The vaccine with the specified name was not found in the system!");
             }
 
             _vaccinationRepository.save(new VaccinationDBModel(Id, el.VaccinationDate, el.Name, el.Surname, el.Patronymic,
@@ -88,28 +89,28 @@ public class MedicalApiService implements IMedicalApiService {
 
         if (passport == null || !passport.matches("[0-9]{4}\\s{1}[0-9]{6}"))
         {
-            throw new Exception("Паспортные данные указаны некорректно!");
+            throw new ValidationException("Passport data is incorrect!");
         }
 
         var vaccination = _vaccinationRepository.findByPassport(passport);
 
         if (vaccination == null)
         {
-            throw new Exception("Указанный паспорт не найден в системе!");
+            throw new ValidationException("The specified passport was not found in the system!");
         }
 
         var vaccine = _vaccineRepository.findById(vaccination.GetVaccineId()).orElse(null);
 
         if (vaccine == null)
         {
-            throw new Exception("Внутренняя ошибка системы!");
+            throw new Exception("The vaccine with the specified id is not in the database!");
         }
 
         var point =_vaccinationCentreRepository.findById(vaccination.GetPointId()).orElse(null);
 
         if (point == null)
         {
-            throw new Exception("Внутренняя ошибка системы!");
+            throw new Exception("The vaccination point with the specified id is not in the database!");
         }
 
         return new Medical(vaccination.GetId(), vaccination.GetPatientName(), vaccination.GetPatientSurname(),
