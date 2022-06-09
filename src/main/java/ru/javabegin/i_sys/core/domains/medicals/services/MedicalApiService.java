@@ -1,6 +1,8 @@
 package ru.javabegin.i_sys.core.domains.medicals.services;
 
 import com.opencsv.bean.CsvToBeanBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.javabegin.i_sys.core.domains.medicals.Medical;
 import ru.javabegin.i_sys.core.domains.medicals.MedicalCsvRead;
@@ -15,8 +17,11 @@ import java.io.FileReader;
 import java.util.List;
 import java.util.Random;
 
+
 @Service
 public class MedicalApiService implements IMedicalApiService {
+
+    private static final Logger Log = LoggerFactory.getLogger(MedicalApiService.class.getName());
 
     private final IVaccinationCentreRepository _vaccinationCentreRepository;
 
@@ -36,6 +41,8 @@ public class MedicalApiService implements IMedicalApiService {
 
 
     public void AddFile(String filePath) throws Exception {
+        Log.info("Call Method of MedicalApiService: AddFile(" + filePath + ")");
+
         List<MedicalCsvRead> beans = new CsvToBeanBuilder(new FileReader(filePath))
                 .withType(Medical.class)
                 .build()
@@ -79,13 +86,17 @@ public class MedicalApiService implements IMedicalApiService {
 
             _vaccinationRepository.save(new VaccinationDBModel(Id, el.VaccinationDate, el.Name, el.Surname, el.Patronymic,
                     el.PassportValue, vaccine.GetId(), point.GetId()));
+
         }
 
+        Log.info("Method of MedicalApiService: AddFile(" + filePath + ") successfully completed");
 
     }
 
 
     public Medical GetVaccineInfoByPassport(String passport) throws Exception {
+
+        Log.info("Call Method of MedicalApiService: GetVaccineInfoByPassport(" + passport + ")");
 
         if (passport == null || !passport.matches("[0-9]{4}\\s{1}[0-9]{6}"))
         {
@@ -112,6 +123,8 @@ public class MedicalApiService implements IMedicalApiService {
         {
             throw new Exception("The vaccination point with the specified id is not in the database!");
         }
+
+        Log.info("Method of MedicalApiService: GetVaccineInfoByPassport(" + passport + ") successfully completed");
 
         return new Medical(vaccination.GetId(), vaccination.GetPatientName(), vaccination.GetPatientSurname(),
                 vaccination.GetPatronymic(), vaccination.GetPatientPassport(),

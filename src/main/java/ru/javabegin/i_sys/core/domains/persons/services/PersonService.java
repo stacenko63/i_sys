@@ -1,6 +1,8 @@
 package ru.javabegin.i_sys.core.domains.persons.services;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.javabegin.i_sys.core.domains.persons.Person;
@@ -15,8 +17,7 @@ import java.util.List;
 public class PersonService implements IPersonService {
 
 
-
-
+    private static final Logger Log = LoggerFactory.getLogger(PersonService.class.getName());
     private final IPersonRepository _personRepository;
 
     private final IAddressRepository _addressRepository;
@@ -40,6 +41,9 @@ public class PersonService implements IPersonService {
 
 
     public ArrayList<Person> GetPersonsByPage(int page, int size) throws Exception {
+
+        Log.info("Call Method of PersonService: GetPersonByPage(" + page + "," + size + ")");
+
         if (page < 1)
         {
             throw new ValidationException("The page number must be at least 1!");
@@ -79,7 +83,7 @@ public class PersonService implements IPersonService {
             index++;
         }
 
-
+        Log.info("Method of PersonService: GetPersonByPage(" + page + "," + size + ") successfully completed");
 
         return result;
     }
@@ -87,6 +91,9 @@ public class PersonService implements IPersonService {
 
 
     public Person GetPersonById(Long id) throws Exception {
+
+        Log.info("Call Method of PersonService: GetPersonById(" + id + ")");
+
         var personsResult = _personRepository.findById(id).orElse(null);
         if (personsResult == null)
         {
@@ -121,7 +128,7 @@ public class PersonService implements IPersonService {
                     entity.GetStreet(), entity.GetStreetNumber(), entity.GetMailIndex()));
         }
 
-
+        Log.info("Method of PersonService: GetPersonById(" + id + ") successfully completed");
 
         return new Person(id, personsResult.GetName(), personsResult.GetSurname(),
                 personsResult.GetPatronymic(), documentsCoreResult, addressesResult, contactsCoreResult);
@@ -134,6 +141,9 @@ public class PersonService implements IPersonService {
 
 
     public void CreatePerson(Person person) {
+
+        Log.info("Call Method of PersonService: CreatePerson(" + person + ")");
+
         PersonValidate(person);
 
        _personRepository.save(new PersonDBModel(person.Id, person.Name, person.Surname, person.Patronymic));
@@ -153,11 +163,15 @@ public class PersonService implements IPersonService {
             _addressRepository.save(new AddressDBModel(el.Id, el.City, el.Street, el.StreetNumber, el.MailIndex));
             _personAddressRepository.save(new PersonAddressDBModel(el.Id,el.AddressType, person.Id));
         }
+
+        Log.info("Call Method of PersonService: CreatePerson(" + person + ") successfully completed");
     }
 
 
 
     public void UpdatePerson(Long id, Person person) throws Exception {
+
+        Log.info("Call Method of PersonService: UpdatePerson(" + id + "," + person + ")");
         PersonValidate(person);
         PersonDBModel result = _personRepository.findById(id).orElse(null);
 
@@ -170,6 +184,7 @@ public class PersonService implements IPersonService {
         person.Id = id;
         CreatePerson(person);
 
+        Log.info("Call Method of PersonService: UpdatePerson(" + id + "," + person + ") successfully completed");
     }
 
 
@@ -177,6 +192,9 @@ public class PersonService implements IPersonService {
 
 
     public void DeletePerson(Long id) throws Exception {
+
+        Log.info("Call Method of PersonService: DeletePerson(" + id + ")");
+
         var result = _personRepository.findById(id).orElse(null);
         if (result == null)
         {
@@ -212,12 +230,17 @@ public class PersonService implements IPersonService {
             }
         }
 
+        Log.info("Method of PersonService: DeletePerson(" + id + ") successfully completed");
     }
 
 
 
 
     public boolean CheckValidPassportByName(String name, String surname, String patronymic, String passportValue) throws Exception {
+
+        Log.info("Call Method of PersonService: CheckValidPassportByName(" + name + "," + surname + "," +
+                patronymic + "," + passportValue + ")");
+
         if (name == null || name.isEmpty())
         {
             throw new ValidationException("The name is incorrect!");
@@ -239,12 +262,16 @@ public class PersonService implements IPersonService {
         List<PersonDBModel> persons = _personRepository.findAllByNameAndSurnameAndPatronymic(name, surname, patronymic);
         if (persons == null)
         {
+            Log.info("Call Method of PersonService: CheckValidPassportByName(" + name + "," + surname + "," +
+                    patronymic + "," + passportValue + ") successfully completed");
             return false;
         }
 
         DocumentDBModel document = _documentRepository.findByDocumentTypeAndValue("passport", passportValue);
         if (document == null)
         {
+            Log.info("Call Method of PersonService: CheckValidPassportByName(" + name + "," + surname + "," +
+                    patronymic + "," + passportValue + ") successfully completed");
             return false;
         }
 
@@ -252,9 +279,14 @@ public class PersonService implements IPersonService {
         {
             if (el.GetId().equals(document.GetPersonId()))
             {
+                Log.info("Call Method of PersonService: CheckValidPassportByName(" + name + "," + surname + "," +
+                        patronymic + "," + passportValue + ") successfully completed");
                 return true;
             }
         }
+
+        Log.info("Call Method of PersonService: CheckValidPassportByName(" + name + "," + surname + "," +
+                patronymic + "," + passportValue + ") successfully completed");
 
         return false;
     }
