@@ -17,6 +17,8 @@ import java.io.FileReader;
 import java.util.List;
 import java.util.Random;
 
+import static java.lang.Math.abs;
+
 
 @Service
 public class MedicalApiService implements IMedicalApiService {
@@ -68,7 +70,7 @@ public class MedicalApiService implements IMedicalApiService {
                 throw new ValidationException("Incorrect connection of the full name with the passport!");
             }
 
-            Long Id = el.Id.matches("'^\\d+$'") ? Long.parseLong(el.Id) : new Random().nextLong();
+            Long Id = el.Id.matches("'^\\d+$'") ? Long.parseLong(el.Id) : abs(new Random().nextLong());
 
             var point = _vaccinationCentreRepository.findByName(el.VaccinePointName);
 

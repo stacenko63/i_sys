@@ -3,13 +3,15 @@ package ru.javabegin.i_sys.core.domains.persons;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static java.lang.Math.abs;
+
 public class Person {
 
 
 
 
     public Person(String Name, String Surname, String Patronymic, ArrayList<Documents> Documents, ArrayList<Addresses> Addresses, ArrayList<Contacts> Contacts) {
-        this.Id = new Random().nextLong();
+        this.Id = abs(new Random().nextLong());
         this.Name = Name;
         this.Surname = Surname;
         this.Patronymic = Patronymic;
