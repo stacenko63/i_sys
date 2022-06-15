@@ -6,5 +6,6 @@ import ru.javabegin.i_sys.data.medicals.VaccineDBModel;
 
 @Repository
 public interface IVaccineRepository extends JpaRepository<VaccineDBModel, Long> {
+
     VaccineDBModel findByName(String name);
 }

@@ -51,7 +51,7 @@ public class Person {
         }
 
         public Documents(String DocumentType, String Value) {
-            this.Id = new Random().nextLong();
+            this.Id = abs(new Random().nextLong());
             this.DocumentType = DocumentType;
             this.Value = Value;
         }
@@ -71,7 +71,7 @@ public class Person {
         }
 
         public Addresses (String AddressType, String City, String Street, int StreetNumber, String MailIndex) {
-            this.Id = new Random().nextLong();
+            this.Id = abs(new Random().nextLong());
             this.AddressType = AddressType;
             this.City = City;
             this.Street = Street;
@@ -95,7 +95,7 @@ public class Person {
         }
 
         public Contacts(String ContactType, String Contact) {
-            this.Id = new Random().nextLong();
+            this.Id = abs(new Random().nextLong());
             this.ContactType = ContactType;
             this.Contact = Contact;
         }

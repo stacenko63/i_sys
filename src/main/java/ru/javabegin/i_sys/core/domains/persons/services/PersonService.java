@@ -260,7 +260,8 @@ public class PersonService implements IPersonService {
 
 
         List<PersonDBModel> persons = _personRepository.findAllByNameAndSurnameAndPatronymic(name, surname, patronymic);
-        if (persons == null)
+
+        if (persons == null || persons.isEmpty())
         {
             Log.info("Call Method of PersonService: CheckValidPassportByName(" + name + "," + surname + "," +
                     patronymic + "," + passportValue + ") successfully completed");

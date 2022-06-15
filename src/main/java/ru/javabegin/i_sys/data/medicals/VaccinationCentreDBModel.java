@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "vaccination_centres")
-public class VaccinationCenterDBModel {
+public class VaccinationCentreDBModel {
 
     @Id
     private Long id;
@@ -16,6 +16,16 @@ public class VaccinationCenterDBModel {
 
     @Column(name = "address")
     private String address;
+
+    public VaccinationCentreDBModel(Long Id, String Name, String Address) {
+        id = Id;
+        name = Name;
+        address = Address;
+    }
+
+    public VaccinationCentreDBModel() {
+
+    }
 
     public String GetName() {
         return name;

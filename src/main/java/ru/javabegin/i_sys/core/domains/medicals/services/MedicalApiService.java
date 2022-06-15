@@ -10,10 +10,13 @@ import ru.javabegin.i_sys.core.domains.medicals.repositories.IVaccinationCentreR
 import ru.javabegin.i_sys.core.domains.medicals.repositories.IVaccinationRepository;
 import ru.javabegin.i_sys.core.domains.medicals.repositories.IVaccineRepository;
 import ru.javabegin.i_sys.core.domains.persons.services.IPersonService;
+import ru.javabegin.i_sys.data.medicals.VaccinationCentreDBModel;
 import ru.javabegin.i_sys.data.medicals.VaccinationDBModel;
+import ru.javabegin.i_sys.data.medicals.VaccineDBModel;
 import ru.javabegin.i_sys.web.exceptions.ValidationException;
 
 import java.io.FileReader;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Random;
 
@@ -46,7 +49,7 @@ public class MedicalApiService implements IMedicalApiService {
         Log.info("Call Method of MedicalApiService: AddFile(" + filePath + ")");
 
         List<MedicalCsvRead> beans = new CsvToBeanBuilder(new FileReader(filePath))
-                .withType(Medical.class)
+                .withType(MedicalCsvRead.class)
                 .build()
                 .parse();
 
@@ -59,7 +62,7 @@ public class MedicalApiService implements IMedicalApiService {
                 throw new ValidationException("Incorrect data entry in the file!");
             }
 
-            if (el.PassportValue.matches("[0-9]{4}\\s{1}[0-9]{6}"))
+            if (!el.PassportValue.matches("[0-9]{4}\\s{1}[0-9]{6}"))
             {
                 throw new ValidationException("The passport is incorrect!");
             }
@@ -72,7 +75,16 @@ public class MedicalApiService implements IMedicalApiService {
 
             Long Id = el.Id.matches("'^\\d+$'") ? Long.parseLong(el.Id) : abs(new Random().nextLong());
 
+            while (_vaccinationRepository.findById(Id).orElse(null) != null)
+            {
+                Id = abs(new Random().nextLong());
+            }
+
+            _vaccinationCentreRepository.save(new VaccinationCentreDBModel(1L, "Point1", "Address1"));
+            _vaccineRepository.save(new VaccineDBModel(1L, "Sputnik"));
+
             var point = _vaccinationCentreRepository.findByName(el.VaccinePointName);
+
 
             if (point == null)
             {
@@ -86,7 +98,10 @@ public class MedicalApiService implements IMedicalApiService {
                 throw new ValidationException("The vaccine with the specified name was not found in the system!");
             }
 
-            _vaccinationRepository.save(new VaccinationDBModel(Id, el.VaccinationDate, el.Name, el.Surname, el.Patronymic,
+
+
+            _vaccinationRepository.save(new VaccinationDBModel(Id, new SimpleDateFormat("yyyy-MM-dd").parse(el.VaccinationDate),
+                    el.Name, el.Surname, el.Patronymic,
                     el.PassportValue, vaccine.GetId(), point.GetId()));
 
         }

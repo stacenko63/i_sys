@@ -2,8 +2,6 @@ package ru.javabegin.i_sys.core.domains.medicals;
 
 import com.opencsv.bean.CsvBindByPosition;
 
-import java.util.Date;
-
 public class MedicalCsvRead {
 
 
@@ -23,7 +21,7 @@ public class MedicalCsvRead {
     public String PassportValue;
 
     @CsvBindByPosition(position = 5)
-    public Date VaccinationDate;
+    public String VaccinationDate;
 
     @CsvBindByPosition(position = 6)
     public String VaccineName;

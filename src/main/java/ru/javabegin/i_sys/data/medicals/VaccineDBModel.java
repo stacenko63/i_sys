@@ -14,6 +14,15 @@ public class VaccineDBModel {
     @Column(name = "name")
     private String name;
 
+    public VaccineDBModel(Long Id, String Name) {
+        id = Id;
+        name = Name;
+    }
+
+    public VaccineDBModel() {
+
+    }
+
     public String GetName() {
         return name;
     }

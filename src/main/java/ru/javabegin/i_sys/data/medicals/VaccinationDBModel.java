@@ -48,6 +48,10 @@ public class VaccinationDBModel {
     @Column(name = "point_id")
     private Long pointId;
 
+    public VaccinationDBModel() {
+
+    }
+
     public Long GetId() {
         return id;
     }
